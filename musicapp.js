@@ -11,6 +11,7 @@ const repeatbtn = $('.btn-repeat')
 const randombtn = $('.btn-random')
 const song = $('.song')
 const currentAudio = $('#audio')
+const volume = $('.volume')
 const progressBar = $('.progress')
 const player = $(".player");
     const app =  {
@@ -18,6 +19,7 @@ const player = $(".player");
     isplaying : false,
     isrepeat : false,
     israndom : false,
+    volume : 50,
     arrayrandom : [],
     songs : [
         {
@@ -183,7 +185,13 @@ const player = $(".player");
      progressBar.onchange = function(){
         currentAudio.currentTime = progressBar.value*currentAudio.duration/100;
      }
-
+     
+     //change volume of volume bar
+     volume.onchange = function(){
+        console.log(volume.value)
+        console.log(currentAudio.volume)
+        currentAudio.volume = volume.value/100
+     }
 
 
     },
@@ -221,6 +229,8 @@ const player = $(".player");
     nowPlaying.textContent = this.songs[this.currentIndex].name
     cdThumb.style.backgroundImage = `url('assets/image/${this.currentIndex}.jpg')` ;
     currentAudio.src = `assets/music/${this.currentIndex}.mp3`;
+    currentAudio.volume = this.volume/100;
+    volume.value = this.volume;
     },
     
     start : function(){
